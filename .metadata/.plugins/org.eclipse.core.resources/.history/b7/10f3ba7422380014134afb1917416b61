@@ -37,9 +37,6 @@
 	</html>
 	";
 	
-	//Testkod för att kolla så att den lokala databasen fungerar
-	//http://www.clonmelweb.net/tutorial_EasyPHP_2of2.php
-	
     $server = "127.0.0.1";
     $username = "root";
     $password = "";
@@ -54,9 +51,9 @@
         $result = mysql_query($sql);
      
         while ($db_field = mysql_fetch_assoc($result)) {
-            print "<b>ID</b>: " .$db_field['LoginID']. " ";
-            print "<b>Name</b>: " .$db_field['Username']. " ";
-            print "<b>Age</b>: " .$db_field['Password']. "<br/>";
+            print "<b>ID</b>: " .$db_field['id']. " ";
+            print "<b>Name</b>: " .$db_field['name']. " ";
+            print "<b>Age</b>: " .$db_field['age']. "<br/>";
         }
      
         mysql_close($db_handle);

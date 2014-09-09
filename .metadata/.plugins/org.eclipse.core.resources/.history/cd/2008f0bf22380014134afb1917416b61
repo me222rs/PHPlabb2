@@ -37,9 +37,6 @@
 	</html>
 	";
 	
-	//Testkod för att kolla så att den lokala databasen fungerar
-	//http://www.clonmelweb.net/tutorial_EasyPHP_2of2.php
-	
     $server = "127.0.0.1";
     $username = "root";
     $password = "";
