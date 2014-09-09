@@ -1,0 +1,25 @@
+<?php 
+
+	echo "
+	<!DOCTYPE html>
+	<html>
+		<body>
+			<form>
+				<h1> Laboration 2 - Login</h1>
+				Username:
+					<input type='text' id='Username' />
+				Password:
+					<input type='password' id='Password' />
+				Keep me logged in!
+					<input type='checkbox' name='StayLoggedIn' />
+					
+					<button type='button'>Log in</button>
+			</form>
+		". date('F') ."
+		</body>
+		
+	
+	</html>
+	";
+	
+?>

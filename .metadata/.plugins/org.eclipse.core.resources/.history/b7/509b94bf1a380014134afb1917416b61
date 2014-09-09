@@ -1,0 +1,37 @@
+<?php 
+
+	setlocale(LC_ALL , "swedish"); //Borde sätta språket till svenska?
+	$day = ucwords(utf8_encode(strftime("%A")));
+	$month = ucwords(utf8_encode(strftime("%B")));
+	$dayNumber = strftime("%d");
+	$year = strftime("%Y");
+	$time = strftime("%H:%M:%S");
+
+
+	echo "
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset='UTF-8'>
+		</head>
+		<body>
+		
+			<form>
+				<h1> Laboration 2 - Login</h1>
+				Username:
+					<input type='text' id='Username' />
+				Password:
+					<input type='password' id='Password' />
+				Keep me logged in!
+					<input type='checkbox' name='StayLoggedIn' />
+					
+					<button type='button'>Log in</button>
+			</form>
+		". ucwords(strftime($day . ", den " . $dayNumber . " " . $month . " år " . $year .". Klockan är [". $time . "]")) ."
+		</body>
+		
+	
+	</html>
+	";
+	
+?>
