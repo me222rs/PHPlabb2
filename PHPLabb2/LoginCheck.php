@@ -1,10 +1,23 @@
 <?php 
+require_once 'LoggedIn.php';
+require_once 'HTMLView.php';
 
-	
-			$myusername = "";
-			$mypassword = "";
+	class LoginCheck {
+		
+		
+		
+	function __construct($myusername, $mypassword){
+		
+		$this->Login($myusername, $mypassword);
+		//echo "körs konstruktorn i LoginCheck?";
+	}
+		
+		function Login($myusername, $mypassword){
+		var_dump($myusername, $mypassword);
+			//$myusername = "";
+			//$mypassword = "";
 
-
+	//echo "körs detta?";
 		
 			
 		$adress ="127.0.0.1"; // MySQL databas host 
@@ -19,8 +32,8 @@
 		mysql_select_db("$databaseName")or die("Ingen databas hittades");
 
 		// $_POST hämtar värdet på textboxarna 
-		$myusername = $_POST['myUsername']; 
-		$mypassword = $_POST['myPassword'];
+		//$myusername = $_POST['myUsername']; 
+		//$mypassword = $_POST['myPassword'];
 		
 		if($myusername == null || $mypassword == null){
 			echo "
@@ -45,19 +58,27 @@
 
 		// mysql_num_rows räknar rader i databasen som innehåller det inmatade anvn och lösen
 		$count=mysql_num_rows($result);
-
+		
+		$view = new LoggedInView();
+		$htmlview = new HTMLView();
 		// Finns det en rad med överenstämmande inloggningsuppgifter så kör if satsen
 		if($count==1){
 
 		// Redirectar till en annan sida
 		session_start();
-		header("location:LoggedIn.php");
+		//header("location:LoggedIn.php");
+		$loginview = $view->ShowLoggedInPage();
+		$htmlview->echoHTML($loginview);
+		echo "Inloggad som: " . $myusername;
+		
 		}else {
-			echo "Fel användarnamn eller lösen!<br>
-			<a href='index.php'>Tillbaka</a>";
-}
+			
+			$view->echoHTML("
+			Fel användarnamn eller lösen!<br>
+			<a href='index.php'>Tillbaka</a>");
+		}
 	
-
-
+	}
+}
 
 ?>
