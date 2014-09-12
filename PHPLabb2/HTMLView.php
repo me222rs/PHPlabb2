@@ -31,7 +31,7 @@ class HTMLView {
 		<body>
 			$body
 			
-		". ucwords(strftime($day . ", den " . $dayNumber . " " . $month . " år " . $year .". Klockan är [". $time . "]")) ."
+		". $day . ", den " . $dayNumber . " " . $month . " år " . $year .". Klockan är [". $time . "]" ."
 		</body>
 		
 	
@@ -40,6 +40,7 @@ class HTMLView {
 	
 		
 	}
+	
 	
 	public function GetUsername(){
 		if(isset($_POST['myUsername'])){

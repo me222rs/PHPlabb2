@@ -3,22 +3,50 @@
 	require_once 'HTMLView.php';
 	require_once 'LoginCheck.php';
 	require_once 'Start.php';
-	
-	$login = new LoginView();
-	$body = $login->ShowForm();
-	
-	
+			
+	$button = new LoginView();
 	$view = new HTMLView();
-	$view->echoHTML($body);
+	$count = 0;
+	$body = "";
+	//$isLoggedIn = new LoginCheck("test", "test2");
 	
-	$loginview = new LoginView();
-	//$hej = $loginview->GetCreadentials();
+	if($button->GetLoginButton()){
+		echo "if körs";
+		$c = new LoginCheck($view->GetUsername(), $view->GetPassword());
+		//var_dump($c);
+		//die();
+		//$count = $isLoggedIn->GetCount();
+		//echo($count);
+	}else{
+			echo "else körs!";
+			$login = new LoginView();
+			$body = $login->ShowForm();
+			
+			$view->echoHTML($body);
+			
+	}	
+			
+	//echo("Koden kommer hit");
+	//$isLoggedIn = new LoginCheck("test", "test2");
+	// var_dump("count är " . $count);
+			// if($count == 0){
+				//$login = new LoginView();
+				//$body = $login->ShowForm();
+			// }
+
+		
+
 	
-		//$myusername = $_POST['myUsername']; 
-		//$mypassword = $_POST['myPassword'];
-	//var_dump($myusername, $mypassword);
+	// $view = new HTMLView();
+	//$view->echoHTML($body);
+	
+	//$loginview = new LoginView();
+
 	 
- 		$c = new LoginCheck($view->GetUsername(), $view->GetPassword());
+ 		//$c = new LoginCheck($view->GetUsername(), $view->GetPassword());
+		
+		
+		
 		//$htmlBody = $c->Login($myusername, $mypassword);
 	
 	//ucwords gör att strängen börjar med stor bokstav.

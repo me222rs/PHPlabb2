@@ -4,16 +4,17 @@ require_once 'HTMLView.php';
 
 	class LoginCheck {
 		
-		
+	private $count;
 		
 	function __construct($myusername, $mypassword){
 		
 		$this->Login($myusername, $mypassword);
+		//$this->GetCount();
 		//echo "körs konstruktorn i LoginCheck?";
 	}
 		
 		function Login($myusername, $mypassword){
-		var_dump($myusername, $mypassword);
+		//var_dump($myusername, $mypassword);
 			//$myusername = "";
 			//$mypassword = "";
 
@@ -35,13 +36,13 @@ require_once 'HTMLView.php';
 		//$myusername = $_POST['myUsername']; 
 		//$mypassword = $_POST['myPassword'];
 		
-		if($myusername == null || $mypassword == null){
-			echo "
-			Inget användarnamn eller löserord!<br>
-			<a href='index.php'>Tillbaka</a>	
-			";
-			die();
-		} 
+		// if($myusername == null || $mypassword == null){
+			// echo "
+			// Inget användarnamn eller löserord!<br>
+			// <a href='index.php'>Tillbaka</a>	
+			// ";
+			// die();
+		// } 
 		
 		// Skapar ett hashat lösenord
 		
@@ -57,28 +58,35 @@ require_once 'HTMLView.php';
 		$result=mysql_query($sql);
 
 		// mysql_num_rows räknar rader i databasen som innehåller det inmatade anvn och lösen
-		$count=mysql_num_rows($result);
-		
-		$view = new LoggedInView();
+		$this->count=mysql_num_rows($result);
+		//$this->count = 0;
+		$view = new LoggedInView($username);
 		$htmlview = new HTMLView();
 		// Finns det en rad med överenstämmande inloggningsuppgifter så kör if satsen
-		if($count==1){
+		if($this->count==1){
 
 		// Redirectar till en annan sida
 		session_start();
 		//header("location:LoggedIn.php");
-		$loginview = $view->ShowLoggedInPage();
+		//return $this->count;
+		$loginview = $view->ShowLoggedInPage($myusername);
 		$htmlview->echoHTML($loginview);
-		echo "Inloggad som: " . $myusername;
+		//return $loginview;
 		
 		}else {
-			
-			$view->echoHTML("
-			Fel användarnamn eller lösen!<br>
-			<a href='index.php'>Tillbaka</a>");
+			$htmlview = new HTMLView();
+			$backToLogin = new LoginView();
+			$html = $backToLogin->ShowForm();
+			$htmlview->echoHTML($html);
 		}
 	
 	}
+
+		 function GetCount(){
+			 var_dump($this->count);
+			 return $this->count;
+		 }
+
 }
 
 ?>
