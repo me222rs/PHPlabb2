@@ -34,10 +34,7 @@ $cookie = new CookieHandler();
 $cookieExists = $cookie -> CookieExists();
 
 //Om kakorna finns så loggas man in med uppgifterna som finns i kakan
-if ($cookieExists === TRUE) {
-	$c = new LoginCheck($_COOKIE["Username"], $_COOKIE["Password"]);
-	$stop = TRUE;
-}
+
 
 //Kollar om det finns en session och ifall det gör det så loggas man in.
 if ($_SESSION['IsLoggedIn'] == TRUE && $stop === FALSE) {
@@ -50,20 +47,27 @@ if ($_SESSION['IsLoggedIn'] == TRUE && $stop === FALSE) {
 
 }
 
-
+if ($cookieExists === TRUE && $_SESSION['IsLoggedIn'] == FALSE) {
+	$_SESSION['cookieLogin'] = TRUE;
+	
+	$c = new LoginCheck($_COOKIE["Username"], $_COOKIE["Password"]);
+	$stop = TRUE;
+}
 
 //Kollar om användaren trycker på inloggningsknappen
 if ($button -> GetLoginButton()) {
 	echo "if körs";
 	//Kollar de inmatade uppgifterna om de stämmer
 	$c = new LoginCheck($view -> GetUsername(), $view -> GetPassword());
+	
 
 } else {
 	//Stämmer de inte visas inloggningsformuläret igen med användarnamne ifyllt.
 	if (!isset($_SESSION['IsLoggedIn'])) {
-		if($_SERVER['QUERY_STRING'] === "Logout"){
+		if($_SESSION['Logout'] == TRUE){
 	$message = "Du är nu utloggad";
 }
+		session_unset($_SESSION['Logout']);
 		echo "else körs!";
 		$login = new LoginView();
 		$body = $login -> ShowForm($message, $username);
@@ -71,6 +75,9 @@ if ($button -> GetLoginButton()) {
 		$view -> echoHTML($body);
 	}
 }
+//echo "Tar bort logout sessionen";
+
+
 
 //echo("Koden kommer hit");
 //$isLoggedIn = new LoginCheck("test", "test2");

@@ -45,20 +45,14 @@ session_start();
 			
 			
 			
-			$errorMessage = "";
+			$errorMessage = NULL;
 			//Användarnamn och meddelande visas på inloggningssidan
 			$view = new LoggedInView($myusername, $errorMessage);
 			$htmlview = new HTMLView();
 			
-			if(!$myusername == $this->username2 && !$mypassword == $this->password2){
-				$errorMessage = "Fel användarnamn och lösenord";
-				
-				$htmlview = new HTMLView();
-				$backToLogin = new LoginView();
-				$html = $backToLogin->ShowForm($errorMessage, $myusername);
-				$htmlview->echoHTML($html);
-				
-			}
+
+			
+
 			
 			if($myusername == "" || $myusername == NULL){
 				$errorMessage = "Användarnamn saknas";
@@ -70,7 +64,6 @@ session_start();
 				die();
 			}
 			
-			
 			if($mypassword == "" || $mypassword == NULL){
 				$errorMessage = "Lösenord saknas";
 				
@@ -79,6 +72,18 @@ session_start();
 				$html = $backToLogin->ShowForm($errorMessage, $myusername);
 				$htmlview->echoHTML($html);
 				die();
+			}
+			
+			
+				if(!$myusername == $this->username2 && !$mypassword == $this->password2){
+				$errorMessage = "Fel användarnamn och lösenord";
+				
+
+				$htmlview = new HTMLView();
+				$backToLogin = new LoginView();
+				$html = $backToLogin->ShowForm($errorMessage, $myusername);
+				$htmlview->echoHTML($html);
+				
 			}
 			
 			
@@ -107,22 +112,32 @@ session_start();
 				$create->CreateCookie($myusername, $mypassword);
 				//Set cookie
 			}
-				
-				
+				var_dump($_SESSION['IsLoggedIn']);
+				// if(isset($_SESSION['IsLoggedIn'])){
+					// $errorMessage = TRUE;
+				// }
 				//$errorMessage = "Inloggningen lyckades!";
 				
 				//Sätter sessionen
+
 				$_SESSION['IsLoggedIn'] = TRUE;
 				$_SESSION['User'] = $myusername;
-				
 			
 				
 				//var_dump($_SESSION['IsLoggedIn']);
 				//var_dump($_SESSION['User']);
 				
-				var_dump($errorMessage);
-				$loginview = $view->ShowLoggedInPage($myusername, $errorMessage);
+				//var_dump($errorMessage);
+				$login2 = new LoggedInView();
+				
+				$mess = $login2->ShowLoginMessage($errorMessage);
+				
+
+				
+				$loginview = $view->ShowLoggedInPage($myusername, $mess);
 				$htmlview->echoHTML($loginview);
+				//header('Location: index.php');
+				//header('Location: ' . $_SERVER['PHP_SELF']);
 			 }
 			 
 			 else{

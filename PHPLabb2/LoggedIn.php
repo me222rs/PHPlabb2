@@ -1,36 +1,103 @@
 <?php 
 	//session_start();
+	require_once 'CookieHandler.php';
+	require_once 'Start.php';
 	class LoggedInView{
 		
 		
 	private $LogoutButton = "Logga ut";	
 		private $message = "";
+		private $cookieLogin = FALSE;
 		
-
+	function ShowLoginMessage($message){
 		
-	function __construct($username, $message){
-		$button = new LoginView();
-
-		$this->message == $message;
+	$login = new LoginView();
+	$userPressedLogin = $login->GetLoginButton();
 		
-		//Innehåller: Vi kommer ihåg dig nästa gång!
-		var_dump($this->message);
-
 		
-	if($_SESSION['IsLoggedIn'] === TRUE){
-		echo "blankt meddelande";
-		$username = $_SESSION['User'];
-		$this->message = "";
-	}
+		if($_SESSION['cookieLogin'] == TRUE && $userPressedLogin == FALSE){
+			$message = "Du loggades in via cookies!";
+			return $message;
+		}	
+		
+		
+	if(!empty($message)){
+		echo ">>>>Kommer in i första if satsen!<<<<";
 	
+		$dontrunthis = TRUE;
+	return $message;
+		//$this->message = $message;
 	
-	elseif($button -> GetLoginButton()){
-		 // //$_SESSION['IsLoggedIn'] === TRUE;
-		 echo "inlogning lyckades";
-		 $this->message = "Inloggningen lyckades!";
+}
+
+
+		
+	if($message == NULL && $_SESSION['IsLoggedIn'] == TRUE && $userPressedLogin == TRUE){
+
+		 echo ">>>>Kommer in i andra if satsen!<<<<";
+		 $message = "Inloggningen lyckades!";
+
+		 //$dontrunthis = TRUE;
+		 //$this->message = $message;
+		return $message;
 	  }
+		
+
+	if($_SESSION['IsLoggedIn'] == TRUE){
+		echo ">>>>Kommer in i tredje if satsen!<<<<";
+		$username = $_SESSION['User'];
+		$message = "";
+		//$this->message = $message;
+
+		return $message;
+	}
+	}
+		
+	function __construct(/*$username, $message*/){
+		$button = new LoginView();
+//$this->message = $message;
+		$dontrunthis = FALSE;
+		$cookie = new CookieHandler();
+		$cookieExists = $cookie -> CookieExists();
+		//Innehåller: Vi kommer ihåg dig nästa gång!
+		
+		
+// if(!empty($message)){
+	// echo ">>>>Kommer in i första if satsen!<<<<";
+// 	
+	// $dontrunthis = TRUE;
+// 	
+	// $this->message = $message;
+// 	
+// }
+// 		
+// 		
+	// if(empty($message) && $_SESSION['IsLoggedIn'] == FALSE){
+// 
+		 // echo ">>>>Kommer in i andra if satsen!<<<<";
+		 // $message = "Inloggningen lyckades!";
+// 
+		 // $dontrunthis = TRUE;
+		 // $this->message = $message;
+// 
+	  // }
+// 		
+// 
+	// if($_SESSION['IsLoggedIn'] == TRUE && $dontrunthis == FALSE){
+		// echo ">>>>Kommer in i tredje if satsen!<<<<";
+		// $username = $_SESSION['User'];
+		// $message = "";
+		// $this->message = $message;
+// 
+// 		
+	// }
+	
+		//$this->ShowLoggedInPage($username, $message);
+
  		
-		$this->ShowLoggedInPage($username, $message);
+		
+		
+		//$this->ShowLoggedInPage($username, $message);
 		//echo "körs loginview konstruktorn?";
 	}
 		
@@ -50,11 +117,12 @@
 			
 			return $LoggedInHTML = "
 			<form method='post' action='Logout.php'>
-				<h1>$this->message</h1>
+				<h1>$message</h1>
 				<h2>Inloggad som: $username</h2>
 				<input type='submit' name='$this->LogoutButton' value='Logout'>
 				
 			</form>";
+			
 		}
 
 		

@@ -51,6 +51,7 @@ class HTMLView {
 	
 	public function GetPassword(){
 		if(isset($_POST['myPassword'])){
+			//echo crypt($_POST['myPassword'], "micke");
 			return $_POST['myPassword'];
 		}
 	}

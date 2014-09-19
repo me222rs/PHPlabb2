@@ -13,6 +13,7 @@
 			
 			public function GetLoginButton(){
 				if(isset($_POST[$this->LoginButton])){
+					
 					return TRUE;
 				}
 				return FALSE;

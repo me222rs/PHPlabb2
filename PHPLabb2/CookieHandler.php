@@ -16,8 +16,8 @@
 		}
 		
 		public function CreateCookie($username, $password){
-			setcookie("Username", $username);
-			setcookie("Password", $password);
+			setcookie("Username", $username, time()+60*60*24*30);
+			setcookie("Password", $password, time()+60*60*24*30);
 			echo "Cookie har skapats";
 		}
 	}
