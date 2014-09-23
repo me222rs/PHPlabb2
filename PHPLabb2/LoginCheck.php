@@ -50,10 +50,32 @@ session_start();
 			$view = new LoggedInView($myusername, $errorMessage);
 			$htmlview = new HTMLView();
 			
-
+			$isCookieCorrect = new CookieHandler();
+			$value = $isCookieCorrect->CheckCookieValue($this->username2, $this->password2);	
+			echo "value är: " . $value;
+			$exist = $isCookieCorrect->CookieExists();
+			echo "exist är: " . $exist;
+			if($exist == TRUE){
+				
+		
 			
-
+			if($value == FALSE){
+				echo "Kommer in i if satsen med fel cookieuppgifter!";
+				$errorMessage = "Fel uppgifter i cookie!";
+				
+				setcookie("Username", NULL);
+ 				setcookie("Password", NULL);
+				
+				$htmlview = new HTMLView();
+				$backToLogin = new LoginView();
+				$html = $backToLogin->ShowForm($errorMessage, $myusername);
+				$htmlview->echoHTML($html);
+				die();
+			}
 			
+			}
+			
+			echo "Passerat if satsen med fel cookieuppgifter";
 			if($myusername == "" || $myusername == NULL){
 				$errorMessage = "Användarnamn saknas";
 				
@@ -152,68 +174,6 @@ session_start();
 
 			
 		
-		
-/*		
-			
-		$adress ="127.0.0.1"; // MySQL databas host 
-		$username = "root"; // MySQL Användarnamn 
-		$password = ""; // MySQL Lösenord 
-		$databaseName = "login"; // Databas namn 
-		$tableName = "loginshit"; // Tabell namn 
- 		
-		// Ansluter till en MySQL databas host med användarnamn och lösenord, misslyckas så körs die()
-		mysql_connect("$adress", "$username", "$password")or die("Anslutningen misslyckades!"); 
-		// Väljer databas, misslyckas så körs die()
-		mysql_select_db("$databaseName")or die("Ingen databas hittades");
-
-		// Skapar ett hashat lösenord
-		
-		for ($x=0; $x<=10; $x++) {
-  			$mypassword = crypt($mypassword, "micke");
-		}
-		
-		var_dump($mypassword);
-
-		//Kör en SELECT från databasen och jämför med resultaten
-
-		$sql = "SELECT * FROM $tableName WHERE Username='$myusername' and Password='$mypassword'";
-		$result=mysql_query($sql);
-		
-		// mysql_num_rows räknar rader i databasen som innehåller det inmatade anvn och lösen
-		$this->count=mysql_num_rows($result);
-		//$this->count = 0;
-		$view = new LoggedInView($myusername, $errorMessage);
-		$htmlview = new HTMLView();
-		
-     		//if(!$myusername == $username && $mypassword == $password){
-			//	echo "KOmmer in";
-			//	$errorMessage = "FEL";
-			//}
-			
-
-		// Finns det en rad med överenstämmande inloggningsuppgifter så kör if satsen
-		if($this->count==1){
-		//if($this->username2 = $myusername && $this->password2 == $mypassword){
-		//$_SESSION['IsLoggedIn']=TRUE;
-			
-		$errorMessage = "Inloggningen lyckades!";
-
-		$loginview = $view->ShowLoggedInPage($myusername, $errorMessage);
-		$htmlview->echoHTML($loginview);
-
-
-		}else{
-			$errorMessage = "FEL användarnamn och lösen.";
-			
-			
-			$htmlview = new HTMLView();
-			$backToLogin = new LoginView();
-			$html = $backToLogin->ShowForm($errorMessage, $myusername);
-			$htmlview->echoHTML($html);
-		}
-	
-	}
-*/
 		 function GetCount(){
 			 var_dump($this->count);
 			 return $this->count;

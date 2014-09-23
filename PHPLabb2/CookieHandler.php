@@ -2,6 +2,7 @@
 	/**
 	 * 
 	 */
+	 require_once 'TextFileHandling.php';
 	class CookieHandler {
 		
 		function __construct() {
@@ -16,10 +17,35 @@
 		}
 		
 		public function CreateCookie($username, $password){
-			setcookie("Username", $username, time()+60*60*24*30);
-			setcookie("Password", $password, time()+60*60*24*30);
+			$expirationTime = time()+45;
+			setcookie("Username", $username, $expirationTime);
+			setcookie("Password", $password, $expirationTime);
+			
+			$CookieTimeUN = $expirationTime;
+			$TextFileHandler = new TextFileHandling();
+			$TextFileHandler->SaveToText($CookieTimeUN);
 			echo "Cookie har skapats";
 		}
+		
+		public function CheckCookieValue($myusername, $mypassword){
+			$time = time();
+			
+			$textFileHandler = new TextFileHandling();
+			$current = $textFileHandler->ReadfromText();
+			if($current < $time){
+				return FALSE;
+			}
+			
+			if($_COOKIE["Username"] == "Admin" && $_COOKIE["Password"] == "Password"){
+				return TRUE;
+			}
+			return FALSE;	
+		}
+		
+		public function CheckCookieTime($CookieTimeUN, $CookieTimePW){
+			
+		}
+		
 	}
 	
 

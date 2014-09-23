@@ -62,43 +62,6 @@
 		//Innehåller: Vi kommer ihåg dig nästa gång!
 		
 		
-// if(!empty($message)){
-	// echo ">>>>Kommer in i första if satsen!<<<<";
-// 	
-	// $dontrunthis = TRUE;
-// 	
-	// $this->message = $message;
-// 	
-// }
-// 		
-// 		
-	// if(empty($message) && $_SESSION['IsLoggedIn'] == FALSE){
-// 
-		 // echo ">>>>Kommer in i andra if satsen!<<<<";
-		 // $message = "Inloggningen lyckades!";
-// 
-		 // $dontrunthis = TRUE;
-		 // $this->message = $message;
-// 
-	  // }
-// 		
-// 
-	// if($_SESSION['IsLoggedIn'] == TRUE && $dontrunthis == FALSE){
-		// echo ">>>>Kommer in i tredje if satsen!<<<<";
-		// $username = $_SESSION['User'];
-		// $message = "";
-		// $this->message = $message;
-// 
-// 		
-	// }
-	
-		//$this->ShowLoggedInPage($username, $message);
-
- 		
-		
-		
-		//$this->ShowLoggedInPage($username, $message);
-		//echo "körs loginview konstruktorn?";
 	}
 		
 	public function GetLogoutButton(){
