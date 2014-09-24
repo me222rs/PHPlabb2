@@ -1,36 +1,32 @@
 <?php
 
-	class LoginView{
-		private $LoginButton = "hej";
-		private $LogoutButton = "Logga ut";
-		private $message = "";	
-			function __construct(){
-				
-		
+class LoginView {
+	private $LoginButton = "hej";
+	private $LogoutButton = "Logga ut";
+	private $message = "";
+	function __construct() {
+
 		//$this->GetCredentials();
 		//echo "körs loginview konstruktorn?";
 	}
-			
-			public function GetLoginButton(){
-				if(isset($_POST[$this->LoginButton])){
-					
-					return TRUE;
-				}
-				return FALSE;
-			}
-			
-			
-		
-			
-			function Message($message){
-				echo "Koden kommer till Message()";
-				print("<h2> Meddelandet är: " . $message . "</h2>");
-				$this->message = $message;
-			}
-			
-		public function ShowForm($message, $username){
-			
-			return $LoginHTML = "
+
+	public function GetLoginButton() {
+		if (isset($_POST[$this -> LoginButton])) {
+
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	function Message($message) {
+		echo "Koden kommer till Message()";
+		print("<h2> Meddelandet är: " . $message . "</h2>");
+		$this -> message = $message;
+	}
+
+	public function ShowForm($message, $username) {
+
+		return $LoginHTML = "
 			<form name='form1' method='post' action='index.php'>
 				<h1> Laboration 2 - Login</h1>
 				Username:
@@ -45,10 +41,7 @@
 					<p>$message</p>
 					
 			</form>";
-		}
+	}
 
-		
-	}	
-	
-	
+}
 ?>

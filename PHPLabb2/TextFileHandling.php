@@ -1,22 +1,20 @@
 <?php
-class TextFileHandling{
-	function SaveToText($CookieTimeUN){
+class TextFileHandling {
+	
+	function SaveToText($CookieTimeUN) {
 		$file = 'Text.txt';
 
+		$current .= $CookieTimeUN . "\n";
 
-
-$current .= $CookieTimeUN . "\n";
-
-
-file_put_contents($file, $current);
+		file_put_contents($file, $current);
 	}
-	
-	function ReadfromText(){
+
+	function ReadfromText() {
 		$file = 'Text.txt';
 		$current = file_get_contents($file);
-		 return $current;
-		
-		
+		return $current;
+
 	}
+
 }
 ?>

@@ -34,6 +34,10 @@ $cookieExists = $cookie -> CookieExists();
 
 //Kollar om det finns en session och ifall det gör det så loggas man in.
 if ($_SESSION['IsLoggedIn'] == TRUE && $stop === FALSE) {
+	
+	//$loggedIn = new LoggedInView();
+	//$loggedIn->IfAlreadyLoggedIn();
+	
 	echo "bajs";
 	var_dump("Session i index" . $_SESSION['IsLoggedIn']);
 
