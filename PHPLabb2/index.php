@@ -1,8 +1,11 @@
 <?php
 
+//Ta bort alla echo och var_dump innan publicering på one.com
+
 //Skydd mot session hijacking
 //http://stackoverflow.com/questions/3517350/session-hijacking-and-php
 session_regenerate_id();
+session_start();
 ini_set('session.cookie_secure',1);
 ini_set('session.cookie_httponly',1);
 ini_set('session.use_only_cookies',1);

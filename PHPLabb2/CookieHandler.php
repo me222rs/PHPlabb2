@@ -17,6 +17,7 @@ class CookieHandler {
 	}
 
 	public function CreateCookie($username, $password) {
+		//crypt($password, "micke");
 		$expirationTime = time() + 45;
 		setcookie("Username", $username, $expirationTime);
 		setcookie("Password", $password, $expirationTime);
@@ -36,7 +37,7 @@ class CookieHandler {
 			return FALSE;
 		}
 
-		if ($_COOKIE["Username"] == "Admin" && $_COOKIE["Password"] == "Password") {
+		if ($_COOKIE["Username"] == $myusername && $_COOKIE["Password"] == $mypassword) {
 			return TRUE;
 		}
 		return FALSE;

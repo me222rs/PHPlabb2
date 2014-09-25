@@ -9,7 +9,7 @@ class LoginCheck {
 
 	private $count;
 	private $username2 = "Admin";
-	private $password2 = "Password";
+	private $password2 = "miuFafsCP9fBo";
 	private $CheckboxIsChecked = "";
 	//private $errorMessage = "";
 
@@ -30,11 +30,6 @@ class LoginCheck {
 		return FALSE;
 	}
 
-	// function LogOut(){
-	// echo "hora";
-	// session_unset($_SESSION['IsLoggedIn']);
-	// //session_destroy();
-	// }
 
 	function GetUser() {
 		if (isset($_SESSION['IsLoggedIn'])) {
