@@ -4,11 +4,32 @@
 
 //Skydd mot session hijacking
 //http://stackoverflow.com/questions/3517350/session-hijacking-and-php
-session_regenerate_id();
+//session_regenerate_id();
+
+//var_dump($_SERVER["HTTP_USER_AGENT"]);
+
+
+
+/*
+if (isset($_SESSION["Session controller"]) == false) {
+			$_SESSION["Session controller"] = array();
+			$_SESSION["Session controller"]["browser"] = $_SERVER["HTTP_USER_AGENT"];
+			$_SESSION["Session controller"]["ip"] = $_SERVER["HTTP_USER_AGENT"];
+		}
+		if ($_SESSION["Session controller"]["browser"] != $_SERVER["HTTP_USER_AGENT"]) {
+			
+		}
+		
+*/
+
+//ini_set('session.cookie_secure',0);
+//ini_set('session.cookie_httponly',1);
+//ini_set('session.use_only_cookies',1);
 session_start();
-ini_set('session.cookie_secure',1);
-ini_set('session.cookie_httponly',1);
-ini_set('session.use_only_cookies',1);
+
+$_SESSION['ClientInfo'] = $_SERVER["HTTP_USER_AGENT"];
+
+//var_dump($_SERVER["HTTP_USER_AGENT"]);
 
 //require_once 'Start.php';
 require_once 'HTMLView.php';
@@ -26,6 +47,7 @@ $message = "";
 $username = "";
 $errorMessage = "";
 $stop = FALSE;
+$crap = FALSE;
 
 
 //Kollar om kakorna finns
@@ -37,18 +59,27 @@ $cookieExists = $cookie -> CookieExists();
 
 //Kollar om det finns en session och ifall det gör det så loggas man in.
 if ($_SESSION['IsLoggedIn'] == TRUE && $stop === FALSE) {
-	
-	//$loggedIn = new LoggedInView();
-	//$loggedIn->IfAlreadyLoggedIn();
-	
-	echo "bajs";
-	var_dump("Session i index" . $_SESSION['IsLoggedIn']);
 
-	$view2 = new LoggedInView("test", $errorMessage);
-	$htmlview = new HTMLView();
-	$view -> echoHTML($view2 -> ShowLoggedInPage($_SESSION['User'], $errorMessage));
+	if($_SESSION['ClientInfo'] == $_SESSION['LoginClient']){
+	echo ">>>Skriver ut Loggedinview i index.php<<<";
+		$view2 = new LoggedInView("test", $errorMessage);
+		$view -> echoHTML($view2 -> ShowLoggedInPage($_SESSION['User'], $errorMessage));
+			
+	}
+	elseif($_SESSION['ClientInfo'] != $_SESSION['LoginClient']){
 
+		echo ">>>Skriver ut formuläret i index.php<<<";
+		$login = new LoginView();
+		$body = $login -> ShowForm($message, $username);
+
+		$view -> echoHTML($body);
+
+
+	}
+	
 }
+
+
 
 if ($cookieExists == TRUE && $_SESSION['IsLoggedIn'] == FALSE) {
 	$_SESSION['cookieLogin'] = TRUE;
@@ -61,7 +92,7 @@ if ($cookieExists == TRUE && $_SESSION['IsLoggedIn'] == FALSE) {
 
 //Kollar om användaren trycker på inloggningsknappen
 if ($button -> GetLoginButton()) {
-	echo "if körs";
+	echo "Försöker logga in";
 	//Kollar de inmatade uppgifterna om de stämmer
 	$c = new LoginCheck($view -> GetUsername(), $view -> GetPassword());
 	

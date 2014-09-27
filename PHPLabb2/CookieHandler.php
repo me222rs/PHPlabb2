@@ -21,6 +21,7 @@ class CookieHandler {
 		$expirationTime = time() + 45;
 		setcookie("Username", $username, $expirationTime);
 		setcookie("Password", $password, $expirationTime);
+		
 
 		$CookieTimeUN = $expirationTime;
 		$TextFileHandler = new TextFileHandling();
