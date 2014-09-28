@@ -9,19 +9,6 @@
 //var_dump($_SERVER["HTTP_USER_AGENT"]);
 
 
-
-/*
-if (isset($_SESSION["Session controller"]) == false) {
-			$_SESSION["Session controller"] = array();
-			$_SESSION["Session controller"]["browser"] = $_SERVER["HTTP_USER_AGENT"];
-			$_SESSION["Session controller"]["ip"] = $_SERVER["HTTP_USER_AGENT"];
-		}
-		if ($_SESSION["Session controller"]["browser"] != $_SERVER["HTTP_USER_AGENT"]) {
-			
-		}
-		
-*/
-
 //ini_set('session.cookie_secure',0);
 //ini_set('session.cookie_httponly',1);
 //ini_set('session.use_only_cookies',1);
